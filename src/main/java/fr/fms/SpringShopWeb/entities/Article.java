@@ -25,4 +25,7 @@ public class Article implements Serializable {
 
     @DecimalMin("50")
     private double price;
+
+    @ManyToOne
+    private Category category;
 }

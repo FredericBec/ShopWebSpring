@@ -5,14 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor @ToString
+@Data @NoArgsConstructor @ToString
 public class Category implements Serializable {
 
     @Id
@@ -21,4 +20,14 @@ public class Category implements Serializable {
 
     private String name;
     private String description;
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Collection<Article> articles;
+
+    public Category(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 }
